@@ -358,6 +358,155 @@
             text-decoration: underline;
         }
         
+        /* Ad Container Styles */
+        .ad-container {
+            margin: 2rem auto;
+            max-width: 728px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .ad-label {
+            text-align: center;
+            padding: 8px;
+            background: #f1f5f9;
+            color: var(--secondary);
+            font-size: 0.8rem;
+        }
+        
+        .ad-content {
+            padding: 20px;
+            text-align: center;
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .ad-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .ad-description {
+            color: var(--secondary);
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+        
+        .ad-cta {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        
+        .ad-cta:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Interstitial Ad Overlay */
+        .interstitial-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .interstitial-content {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: scaleIn 0.3s ease;
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .interstitial-header {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .interstitial-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .interstitial-body {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .interstitial-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .interstitial-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #e0f2fe, #93c5fd);
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .interstitial-cta {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .interstitial-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        .countdown {
+            margin-top: 15px;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
         @media (max-width: 768px) {
             .search-box {
                 flex-direction: column;
@@ -395,10 +544,38 @@
                 display: block;
                 overflow-x: auto;
             }
+            
+            .interstitial-content {
+                width: 95%;
+                max-width: 320px;
+            }
+            
+            .interstitial-title {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Interstitial Ad Overlay -->
+    <div class="interstitial-overlay" id="interstitialAd">
+        <div class="interstitial-content">
+            <div class="interstitial-header">
+                <div>Sponsored Ad</div>
+                <button class="interstitial-close" id="closeAd">&times;</button>
+            </div>
+            <div class="interstitial-body">
+                <div class="interstitial-title">Special MON Token Offer!</div>
+                <div class="interstitial-image">
+                    <div>MON Token Sale - Limited Time</div>
+                </div>
+                <p>Get exclusive early access to MON tokens with a 15% bonus for first-time buyers!</p>
+                <a href="#" class="interstitial-cta">Learn More</a>
+                <div class="countdown" id="countdown">Ad closes in 5 seconds</div>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="container">
             <div class="logo"><i class="fas fa-coins"></i></div>
@@ -408,6 +585,16 @@
     </header>
     
     <div class="container">
+        <!-- Banner Ad -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-content">
+                <div class="ad-title">Trade MON Tokens on MonadDEX</div>
+                <div class="ad-description">Zero fees for the first month • High liquidity • Secure trading</div>
+                <a href="#" class="ad-cta">Start Trading</a>
+            </div>
+        </div>
+        
         <div class="search-container">
             <div class="search-box">
                 <input type="text" class="search-input" id="walletAddress" placeholder="Enter your wallet address (0x...)">
@@ -494,6 +681,16 @@
             </div>
         </div>
         
+        <!-- Banner Ad -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-content">
+                <div class="ad-title">Secure Your MON Tokens with MonadVault</div>
+                <div class="ad-description">Hardware wallet integration • Multi-signature security • 24/7 monitoring</div>
+                <a href="#" class="ad-cta">Learn More</a>
+            </div>
+        </div>
+        
         <footer>
             <p>MONAD Wallet Allocation Checker © 2025</p>
             <p>This tool provides information about MON token allocations for educational purposes only.</p>
@@ -514,6 +711,9 @@
             const resultsContainer = document.getElementById('resultsContainer');
             const resultWalletAddress = document.getElementById('resultWalletAddress');
             const totalAmount = document.getElementById('totalAmount');
+            const interstitialAd = document.getElementById('interstitialAd');
+            const closeAd = document.getElementById('closeAd');
+            const countdown = document.getElementById('countdown');
             
             // Sample data for demonstration
             const sampleData = {
@@ -522,6 +722,27 @@
                 private: '7,000 MON',
                 public: '3,000 MON'
             };
+            
+            // Function to show interstitial ad
+            function showInterstitialAd() {
+                interstitialAd.style.display = 'flex';
+                let seconds = 5;
+                
+                const countdownInterval = setInterval(() => {
+                    seconds--;
+                    countdown.textContent = `Ad closes in ${seconds} seconds`;
+                    
+                    if (seconds <= 0) {
+                        clearInterval(countdownInterval);
+                        closeAd.click();
+                    }
+                }, 1000);
+            }
+            
+            // Close interstitial ad
+            closeAd.addEventListener('click', function() {
+                interstitialAd.style.display = 'none';
+            });
             
             checkButton.addEventListener('click', function() {
                 const address = walletAddress.value.trim();
@@ -546,6 +767,9 @@
                     
                     // For demo purposes, we're using sample data
                     totalAmount.textContent = sampleData.total;
+                    
+                    // Show interstitial ad after results are displayed
+                    setTimeout(showInterstitialAd, 1000);
                 }, 1500);
             });
             
